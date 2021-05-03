@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -29,11 +30,16 @@ android {
 }
 
 dependencies {
+    //Las siguientes cuatro dependencias han sido implementadas para manejar el Inicio de sesión por medio de Google Mail y Facebook.
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
+    implementation 'com.google.firebase:firebase-bom:27.1.0'
+    implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
+    implementation 'com.google.firebase:firebase-auth:16.0.5'
+
+    //Generadas por el sistema.
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.3.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
     implementation 'androidx.navigation:navigation-fragment:2.3.4'
     implementation 'androidx.navigation:navigation-ui:2.3.4'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.0'

@@ -6,6 +6,9 @@ buildscript {
     }
     dependencies {
         classpath "com.android.tools.build:gradle:4.1.2"
+        //Autor del comentario: CN18006;
+        //La siguiente línea ha sido implementada para obtener acceso a la API de Google Services.
+        classpath 'com.google.gms:google-services:4.3.5'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -24,5 +27,7 @@ task clean(type: Delete) {
 }
 
 buildscript { repositories {
+    //Autor del comentario: CN18006;
+    //La siguiente línea sirve para obtener acceso a la API de Facebook.
     mavenCentral()
 }}
