@@ -133,7 +133,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         startActivity(intent);}
 
     //Autor del comentario: CN18006;
-
     //Este método sirve para mandar al usuario a la actividad principal de la aplicación, actualmente se está usando para conocer si es necesario
     // que inicie sesión.
     private void irAMenu(){

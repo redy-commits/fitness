@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:4.1.2"
+        classpath 'com.android.tools.build:gradle:4.2.1'
         //Autor del comentario: CN18006;
         //La siguiente línea ha sido implementada para obtener acceso a la API de Google Services.
         classpath 'com.google.gms:google-services:4.3.5'

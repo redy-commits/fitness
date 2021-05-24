@@ -1,9 +1,12 @@
 package com.fitness_g16;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +24,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-//Autor/es de la clase: CN18006;
+//Autor/es de la/s clase: CN18006;
 /*
  *Esta clase sirve hacer el inicio de sesión de Facebook, vía correo electrónico y vía cuenta de Google.
  * */
@@ -29,6 +32,9 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
     //Constantes globales.
     private final static int CODE_GOOGLE=777;
+
+    //Variable global que sirve para poner el vídeo de fondo al fragamento.
+    private VideoView videoView;
 
     //Variables globales que sirven para manejar el inicio de sesión de Facebook.
     private LoginButton loginFacebook;
@@ -52,13 +58,25 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             super.onStop();
             firebaseAuth.removeAuthStateListener(firebaseAuthListener);}
 
-        //Método que genera la pantalla y provee la mayor parte del comportamiento de la misma.
+    @Override
+    protected void onResume() {
+        super.onResume();
+        videoView.start();}
+
+    //Método que genera la pantalla y provee la mayor parte del comportamiento de la misma.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_login);
 
         //Declaración e inicialización de variables.
+
+        //Para colocar el vídeo  como fondo en la pantalla de login.
+        videoView=(VideoView)findViewById(R.id.videoView);
+        videoView.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.login));//Acceder a la ruta del vídeo.
+        videoView.start();//Reproducir el vídeo.
+        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener(){public void onCompletion(MediaPlayer mp){videoView.start();}});//Reproducción en bucle.
+
         //Para cerrar la sesión de Google Mail.
         firebaseAuth=FirebaseAuth.getInstance();
         firebaseAuthListener=new FirebaseAuth.AuthStateListener() {
