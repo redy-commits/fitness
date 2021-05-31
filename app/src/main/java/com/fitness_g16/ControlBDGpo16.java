@@ -1,15 +1,18 @@
 package com.fitness_g16;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.media.Image;
 
 public class ControlBDGpo16 {
     private DatabaseHelper DBHelper;
     private final Context context;
     private SQLiteDatabase db;
+    private String[] camposRutina=new String [] {"IDRUTINA","TIEMPOPREPARACION","NOMBRERUTINA","DESCRIPCIONRUTINA","DURACION","CODIGOQR"};
 
     public ControlBDGpo16(Context ctx){
         this.context = ctx;
@@ -18,11 +21,10 @@ public class ControlBDGpo16 {
     private static class DatabaseHelper extends SQLiteOpenHelper {
         private static final String BASE_DATOS = "db.s3db";
         private static final int VERSION = 1;
-        public DatabaseHelper(Context context) {
-            super(context, BASE_DATOS, null, VERSION);}
+        public DatabaseHelper(Context context){super(context, BASE_DATOS, null, VERSION);}
 
         @Override
-        public void onCreate(SQLiteDatabase db) {
+        public void onCreate(SQLiteDatabase db){
             try{
                 db.execSQL("drop index if exists CONTIENE_3_FK;");
                 db.execSQL("drop index if exists CONTIENE_2_FK;");
@@ -51,7 +53,7 @@ public class ControlBDGpo16 {
                 db.execSQL("drop table  if exists USUARIO;");
                 db.execSQL("create table EJERCICIO(IDEJERCICIO int not null,TIEMPOACCION DATE, TIEMPODESCANSO DATE, NOMBREEJERCICIO VARCHAR(20),DESCRIPCIONEJERCICIO VARCHAR(256),constraint PK_EJERCICIO primary key (IDEJERCICIO));");
                 db.execSQL("create table USUARIO(IDUSUARIO INT not null,NOMBREUSUARIO VARCHAR(15),CORREOELECTRONICO VARCHAR(90), CONTRASENA VARCHAR(15), NOMBRECOMPLETO VARCHAR(100),constraint PK_USUARIO primary key (IDUSUARIO));");
-                db.execSQL("create table RUTINA(IDUSUARIO INT not null,IDRUTINA INT not null,TIEMPOPREPARACION INT,NOMBRERUTINA VARCHAR(20),DESCRIPCIONRUTINA VARCHAR(256),DURACION DATE,CODIGOQR BLOB,constraint PK_RUTINA primary key (IDUSUARIO, IDRUTINA),foreign key (IDUSUARIO) references USUARIO (IDUSUARIO));");
+                db.execSQL("create table RUTINA(IDUSUARIO INT not null,IDRUTINA INT not null,TIEMPOPREPARACION INT,NOMBRERUTINA VARCHAR(20),DESCRIPCIONRUTINA VARCHAR(256),DURACION VARCHAR(5),CODIGOQR BLOB,constraint PK_RUTINA primary key (IDUSUARIO, IDRUTINA),foreign key (IDUSUARIO) references USUARIO (IDUSUARIO));");
                 db.execSQL("create table CONTIENE_2(IDEJERCICIO int not null,IDRUTINA int not null,constraint PK_CONTIENE_2 primary key (IDEJERCICIO, IDRUTINA), foreign key (IDEJERCICIO) references EJERCICIO (IDEJERCICIO),foreign key (IDRUTINA) references RUTINA (IDRUTINA));");
                 db.execSQL("create index CONTIENE_2_FK on CONTIENE_2 (IDEJERCICIO ASC);");
                 db.execSQL("create index CONTIENE_3_FK on CONTIENE_2 (IDRUTINA ASC);");
@@ -85,18 +87,71 @@ public class ControlBDGpo16 {
 
     public void cerrar(){DBHelper.close();}
 
+    //Métodos para la tabla Rutina.
+
+    public String insertar(Rutina rutina){
+        String regInsertados="¡Rutina guardada correctamente!";
+        long contador=0;
+        ContentValues cv = new ContentValues();
+        cv.put("IDRUTINA",rutina.getIdRutina());
+        cv.put("TIEMPOPREPARACION",rutina.getTiempoPreparacion());
+        cv.put("NOMBRERUTINA",rutina.getNombreRutina());
+        cv.put("DESCRIPCIONRUTINA",rutina.getDescripcionRutina());
+        cv.put("DURACION",rutina.getDuracion());
+        //cv.put("CODIGOQR", rutina.getCodigoQR());
+        contador=db.insert("RUTINA", null,cv);
+
+        if(contador==-1 || contador==0){regInsertados= "Error al insertar el registro. Verifique la inserción, por favor";}
+
+        return regInsertados;}
+
+    public Rutina consultarRutina(int idRutina){
+        String[] id = {String.valueOf(idRutina)};
+        Cursor cursor = db.query("RUTINA", camposRutina, "IDRUTINA = ?", id, null, null, null);
+
+        if(cursor.moveToFirst()){
+            Rutina rutina = new Rutina();
+            rutina.setIdRutina(cursor.getInt(0));
+            rutina.setTiempoPreparacion(cursor.getInt(1));
+            rutina.setNombreRutina(cursor.getString(2));
+            rutina.setDescripcionRutina(cursor.getString(3));
+            rutina.setDuracion(cursor.getString(4));
+            //rutina.setCodigoQR(cursor.getBlob(5));
+            return rutina;}else{return null;}}
+
+    public String actualizar(Rutina rutina) {
+        if(verificarIntegridad(rutina, 1)){
+            String[] id = {String.valueOf(rutina.getIdRutina())};
+            ContentValues cv = new ContentValues();
+            cv.put("IDRUTINA",rutina.getIdRutina());
+            cv.put("TIEMPO0PREPARACION",rutina.getTiempoPreparacion());
+            cv.put("NOMBRERUTINA",rutina.getNombreRutina());
+            cv.put("DESCRIPCIONRUTINA",rutina.getDescripcionRutina());
+            cv.put("DURACION",rutina.getDuracion());
+            //cv.put("CODIGORUTINA",rutina.getCodigoQR());
+            db.update("RUTINA", cv, "IDRUTINA = ?", id);
+            return "Registro actualizado correctamente";}
+        else{return "La rutina "+rutina.getIdRutina()+" no existe";}}
+
+    public String eliminar(Rutina rutina) {
+        String regAfectados="Filas afectadas: ";
+        int contador=0;
+        //if(verificarIntegridad(rutina,2)){
+            contador+=db.delete("RUTINA", "IDRUTINA='"+rutina.getIdRutina()+"'", null);
+        //}
+        regAfectados+=contador;
+        return regAfectados;}
+
     private boolean verificarIntegridad(Object dato, int relacion) throws SQLException{
         switch(relacion){
-            //Verificación de integridad de CN18006 (del caso 1 al caso 13).
-            case 1:{
-                //Verificar que exista la reservación para poder actualizarla.
-                //Reservacion reservacion = (Reservacion)dato;
-                //String[] id = {String.valueOf(reservacion.getIdReservacion())};
-                //abrir();
-                //Cursor c = db.query("reservacion", null, "idReservacion = ?", id, null, null,null);
-               // if(c.moveToFirst()){
+            case 1:{//Verificar que exista la rutina para poder actualizarla.
+                Rutina rutina = (Rutina)dato;
+                String[] id = {String.valueOf(rutina.getIdRutina())};
+                abrir();
+                Cursor c = db.query("RUTINA", null, "IDRUTINA = ?", id, null, null,null);
+                if(c.moveToFirst()){
                     //Se encontró la reservación.
-                    //return true;}
+                    return true;}
                 return false;}
             default:
                 return false;}}
