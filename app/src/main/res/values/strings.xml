@@ -23,4 +23,7 @@
     <string name="not_firebase_with">Error de inicio de sesión</string>
     <string name="iniciaSesion">Inicia sesión para continuar:</string>
     <string name="misRutinas">Mis rutinas</string>
+    <string name="Qr">Qr</string>
+    <string name="fragment_qr">fragment_qr</string>
+    <string name="BotonQr">BotonQr</string>
 </resources>

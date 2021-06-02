@@ -29,7 +29,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
         //Asignación de variables;
         View view=inflater.inflate(R.layout.fragment_home, container,false);
-        btnAgregar=(ImageButton)view.findViewById(R.id.btnAgregar);
+        btnAgregar= view.findViewById(R.id.btnAgregar);
         btnAgregar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){Toast.makeText(getApplicationContext(), "Hola papu", Toast.LENGTH_SHORT).show();}});

@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
@@ -33,6 +35,7 @@ import androidx.appcompat.widget.Toolbar;
  *Esta clase sirve para dirigir el funcionamiento íntegro de la aplicación.
  * */
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
+Button qrbtn;
 
     //Autor del comentario: CN18006;
     //Sospecho que esta variable sirve para controlar el menú de navegación. Esta variable se creó junto con el proyecto de manera predeterminada.
@@ -67,17 +70,22 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        qrbtn= findViewById(R.id.qrbtn);
 
+           qrbtn.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                   startActivity(new Intent(getApplicationContext(),qrscanner.class));
+               }
+           });
         //Autor del comentario: CN18006;
         //Declaración de variables relacionadas con el LogOut de Google Mail.
         firebaseAuth=FirebaseAuth.getInstance();
-        firebaseAuthListener=new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if(user != null){
-                    //Obtener los datos del usuario.
-                }}};
+        firebaseAuthListener= firebaseAuth -> {
+            FirebaseUser user = firebaseAuth.getCurrentUser();
+            if(user != null){
+                //Obtener los datos del usuario.
+            }};
 
         //Autor del comentario: CN18006;
         //Declaración de variables relacionadas con el LogIn silencioso de Google Mail.
@@ -101,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 if(opr.get().isSuccess()){
                     Toast.makeText(this,"Bienvenido/a",Toast.LENGTH_SHORT).show();}}
             else{
-                irALogin();
+               // irALogin();
                 Toast.makeText(this,"Primero tienes que iniciar sesión",Toast.LENGTH_SHORT).show();}}
         //Fin de la sección señalada.
 
@@ -127,10 +135,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
         //Autor del comentario: CN18006;
         // Método que envía al usuario a la pantalla de inicio de sesión si aún no ha iniciado sesión.
-    private void irALogin(){
-        Intent intent = new Intent(MainActivity.this,Login.class);
-        finish();
-        startActivity(intent);}
+    //private void irALogin(){
+      //  Intent intent = new Intent(MainActivity.this,Login.class);
+        //finish();
+        //startActivity(intent);}
 
     //Autor del comentario: CN18006;
     //Este método sirve para mandar al usuario a la actividad principal de la aplicación, actualmente se está usando para conocer si es necesario
