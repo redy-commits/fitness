@@ -75,7 +75,7 @@ Button qrbtn;
            qrbtn.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View v) {
-                   startActivity(new Intent(getApplicationContext(),qrscanner.class));
+
                }
            });
         //Autor del comentario: CN18006;

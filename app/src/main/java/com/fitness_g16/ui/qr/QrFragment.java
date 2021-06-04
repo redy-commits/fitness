@@ -19,50 +19,28 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.fitness_g16.Cronometro;
 import com.fitness_g16.R;
 import com.fitness_g16.qrscanner;
+import com.fitness_g16.ui.home.HomeFragment;
 import com.google.zxing.Result;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
-public class QrFragment  extends AppCompatActivity implements ZXingScannerView.ResultHandler {
+public class QrFragment  extends Fragment {
     private ZXingScannerView escanerView;
     @Override
-    protected void onCreate( Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_qr);
-        Button qrbtn=(Button)findViewById(R.id.qrbtn);
-    }
-    public void EscanerQR(View view){
-        escanerView=new ZXingScannerView(this);
-setContentView(escanerView);
-escanerView.setResultHandler(this);
-escanerView.startCamera();
-    }
-
-    @Override
-
-    public void handleResult(Result rawResult){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Resutaldo del scanner");
-        builder.setMessage(rawResult.getText());
-        AlertDialog alertDialog=builder.create();
-        alertDialog.show();
-        escanerView.resumeCameraPreview(this);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        escanerView.stopCamera();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        escanerView.setResultHandler(this);
-       escanerView.startCamera();
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState){
+        View view=inflater.inflate(R.layout.fragment_qr, container,false);
+        Button btnQr=view.findViewById(R.id.btnQr);
+        btnQr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent cronometro=new Intent(QrFragment.this.getActivity(), qrscanner.class);
+                startActivity(cronometro);
+            }
+        });return view;
     }
 }

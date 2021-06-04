@@ -28,4 +28,5 @@
     <string name="BotonQr">BotonQr</string>
     <string name="FitnessApp">FitnessApp</string>
     <string name="Cronometro">Cronometro</string>
+    <string name="title_activity_gimnasios">Map</string>
 </resources>
