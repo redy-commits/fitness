@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
+import com.fitness_g16.ui.home.HomeFragment;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
@@ -71,11 +72,10 @@ Button qrbtn;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         qrbtn= findViewById(R.id.qrbtn);
-
-           qrbtn.setOnClickListener(new View.OnClickListener() {
+        qrbtn.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View v) {
-
+                  startActivity(new Intent(getApplicationContext(),qrscanner.class));
                }
            });
         //Autor del comentario: CN18006;

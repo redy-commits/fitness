@@ -16,6 +16,10 @@
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_slideshow" />
+        <item
+            android:id="@+id/nav_qr"
+            android:icon="@mipmap/qr"
+            android:title="@string/Qr" />
 
         <item
             android:visible="false"
