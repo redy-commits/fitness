@@ -4,28 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:onClick="EscanerQR">
-
-    <TextView
-        android:id="@+id/txtMisRutinas"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="@string/misRutinas"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    >
 
     <ImageButton
         android:id="@+id/btnAgregar"
         android:layout_width="34dp"
         android:layout_height="37dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="80dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="188dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.527"
-        app:layout_constraintStart_toEndOf="@+id/txtMisRutinas"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/ic_agregar" />
 
@@ -33,12 +20,12 @@
         android:id="@+id/linearLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="5dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtMisRutinas">
+        app:layout_constraintTop_toBottomOf="@+id/btnAgregar">
 
         <ListView
             android:id="@+id/lv"
@@ -68,7 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.201"
+        app:layout_constraintHorizontal_bias="0.162"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="?attr/actionModeSelectAllDrawable" />
@@ -78,10 +65,37 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="13dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnAgregar"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_dialog_map" />
+
+    <ImageButton
+        android:id="@+id/btnBluetooth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginBottom="7dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toStartOf="@+id/btnAgregar"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/btnQr"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/ic_action_off" />
+
+    <ImageButton
+        android:id="@+id/btnMedia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toStartOf="@+id/btnMapa"
+        app:layout_constraintStart_toEndOf="@+id/btnAgregar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_media_play" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
