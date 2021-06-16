@@ -109,7 +109,7 @@ Button qrbtn;
                 if(opr.get().isSuccess()){
                     Toast.makeText(this,"Bienvenido/a",Toast.LENGTH_SHORT).show();}}
             else{
-               // irALogin();
+                irALogin();
                 Toast.makeText(this,"Primero tienes que iniciar sesión",Toast.LENGTH_SHORT).show();}}
         //Fin de la sección señalada.
 
@@ -135,10 +135,10 @@ Button qrbtn;
 
         //Autor del comentario: CN18006;
         // Método que envía al usuario a la pantalla de inicio de sesión si aún no ha iniciado sesión.
-    //private void irALogin(){
-      //  Intent intent = new Intent(MainActivity.this,Login.class);
-        //finish();
-        //startActivity(intent);}
+    private void irALogin(){
+        Intent intent = new Intent(MainActivity.this,Login.class);
+        finish();
+        startActivity(intent);}
 
     //Autor del comentario: CN18006;
     //Este método sirve para mandar al usuario a la actividad principal de la aplicación, actualmente se está usando para conocer si es necesario
