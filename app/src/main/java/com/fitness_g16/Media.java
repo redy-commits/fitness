@@ -43,6 +43,6 @@ public class Media  extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        stopPlayer();
+        //stopPlayer();
     }
 }
